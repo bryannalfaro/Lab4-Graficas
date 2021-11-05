@@ -4,7 +4,7 @@ import random
 BACKGROUND  = (  0,   25,   255)
 CPOINT = (255,255,255)
 
-class Life(object):
+class Game(object):
     def __init__(self, screen):
         self.screen = screen
         self.banderaCross = True
@@ -17,8 +17,27 @@ class Life(object):
     def pixel(self, x, y,color = CPOINT):
         self.screen.set_at((x, y), color)
 
-    def copy(self):
-        self.prev_turn = self.screen.copy()
+    def copyBuffer(self):
+        self.past_config = self.screen.copy()
+
+    def generatingObjects(self,first,second):
+        self.pixel(second,first)
+        self.pixel(second+1,first)
+        self.pixel(second+2,first)
+
+        self.pixel(first,second)
+        self.pixel(first+1,second)
+        self.pixel(first,second-1)
+        self.pixel(first+2,second-2)
+        self.pixel(first+3,second-2)
+        self.pixel(first+2,second-3)
+        self.pixel(first+3,second-3)
+
+        self.pixel(first,second)
+        self.pixel(first,second-1)
+        self.pixel(first,second-2)
+        self.pixel(first-1,second-2)
+        self.pixel(first-2,second-1)
 
     def render(self):
         '''
@@ -29,30 +48,54 @@ class Life(object):
     Cualquier célula muerta que tenga exactamente tres vecinos vivos, vive. (reproduction)
 
         '''
-        contador = 0
         vecinos = 0
-        for i in range (1,self.width-1):
-            for j in range (1,self.height-1):
-                prev = self.prev_turn.get_at((i, j))
+        for i in range (self.width):
+            for j in range (self.height):
+                prev = self.past_config.get_at((i, j))
                 if prev == CPOINT:
                     try:
 
-                        if self.prev_turn.get_at((i+1, j)) == CPOINT:
-                            vecinos += 1
-                        if self.prev_turn.get_at((i-1, j)) == CPOINT:
-                            vecinos += 1
-                        if self.prev_turn.get_at((i, j+1)) == CPOINT:
-                            vecinos += 1
-                        if self.prev_turn.get_at((i, j-1)) == CPOINT:
-                            vecinos += 1
-                        if self.prev_turn.get_at((i+1, j+1)) == CPOINT:
-                            vecinos += 1
-                        if self.prev_turn.get_at((i-1, j-1)) == CPOINT:
-                            vecinos += 1
-                        if self.prev_turn.get_at((i+1, j-1)) == CPOINT:
-                            vecinos += 1
-                        if self.prev_turn.get_at((i-1, j+1)) == CPOINT:
-                            vecinos += 1
+                        try:
+                            if self.past_config.get_at((i+1, j)) == CPOINT:
+                                vecinos += 1
+                        except:
+                            pass
+                        try:
+                            if self.past_config.get_at((i-1, j)) == CPOINT:
+                                vecinos += 1
+                        except:
+                            pass
+
+                        try:
+                            if self.past_config.get_at((i, j+1)) == CPOINT:
+                                vecinos += 1
+                        except:
+                            pass
+                        try:
+                            if self.past_config.get_at((i, j-1)) == CPOINT:
+                                vecinos += 1
+                        except:
+                            pass
+                        try:
+                            if self.past_config.get_at((i+1, j+1)) == CPOINT:
+                                vecinos += 1
+                        except:
+                            pass
+                        try:
+                            if self.past_config.get_at((i-1, j-1)) == CPOINT:
+                                vecinos += 1
+                        except:
+                            pass
+                        try:
+                            if self.past_config.get_at((i+1, j-1)) == CPOINT:
+                                vecinos += 1
+                        except:
+                            pass
+                        try:
+                            if self.past_config.get_at((i-1, j+1)) == CPOINT:
+                                vecinos += 1
+                        except:
+                            pass
                         if vecinos < 2:
                             self.pixel(i, j, BACKGROUND)
                         elif vecinos == 2 or vecinos == 3:
@@ -68,30 +111,53 @@ class Life(object):
 
                 else:
                     try:
-                        if self.prev_turn.get_at((i+1, j)) == CPOINT:
-                            vecinos += 1
-                        if self.prev_turn.get_at((i-1, j)) == CPOINT:
-                            vecinos += 1
-                        if self.prev_turn.get_at((i, j+1)) == CPOINT:
-                            vecinos += 1
-                        if self.prev_turn.get_at((i, j-1)) == CPOINT:
-                            vecinos += 1
-                        if self.prev_turn.get_at((i+1, j+1)) == CPOINT:
-                            vecinos += 1
-                        if self.prev_turn.get_at((i-1, j-1)) == CPOINT:
-                            vecinos += 1
-                        if self.prev_turn.get_at((i+1, j-1)) == CPOINT:
-                            vecinos += 1
-                        if self.prev_turn.get_at((i-1, j+1)) == CPOINT:
-                            vecinos += 1
+                        try:
+                            if self.past_config.get_at((i+1, j)) == CPOINT:
+                                vecinos += 1
+                        except:
+                            pass
+                        try:
+                            if self.past_config.get_at((i-1, j)) == CPOINT:
+                                vecinos += 1
+                        except:
+                            pass
+
+                        try:
+                            if self.past_config.get_at((i, j+1)) == CPOINT:
+                                vecinos += 1
+                        except:
+                            pass
+                        try:
+                            if self.past_config.get_at((i, j-1)) == CPOINT:
+                                vecinos += 1
+                        except:
+                            pass
+                        try:
+                            if self.past_config.get_at((i+1, j+1)) == CPOINT:
+                                vecinos += 1
+                        except:
+                            pass
+                        try:
+                            if self.past_config.get_at((i-1, j-1)) == CPOINT:
+                                vecinos += 1
+                        except:
+                            pass
+                        try:
+                            if self.past_config.get_at((i+1, j-1)) == CPOINT:
+                                vecinos += 1
+                        except:
+                            pass
+                        try:
+                            if self.past_config.get_at((i-1, j+1)) == CPOINT:
+                                vecinos += 1
+                        except:
+                            pass
                         if vecinos ==3:
                             self.pixel(i, j, CPOINT)
                         vecinos=0
                     except:
                         vecinos=0
                         pass
-                        contador += 1
-                        print("Fuera",contador)
 
 
 
