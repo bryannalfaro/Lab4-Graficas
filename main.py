@@ -18,6 +18,8 @@ for i in range(int(width/10)*int(width/40)):
 myfont = pygame.font.SysFont('Comic Sans MS', 10)
 myfont2 = pygame.font.SysFont('Comic Sans MS', 9)
 
+pygame.display.set_caption('GAME OF LIFE')
+pygame.display.set_icon(pygame.image.load('icon.jpg'))
 
 speed = 200
 generations = 0
